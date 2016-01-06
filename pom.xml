@@ -24,13 +24,13 @@
   <name>HandcraftedBits Code Quality Settings</name>
   <description>A collection of code quality settings for HandcraftedBits projects</description>
   <url>https://github.com/handcraftedbits/handcraftedbits-codequality</url>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <inceptionYear>2015</inceptionYear>
 
   <parent>
     <groupId>com.handcraftedbits</groupId>
     <artifactId>handcraftedbits-parent</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
   </parent>
 
   <scm>
@@ -44,4 +44,28 @@
     <url>https://github.com/handcraftedbits/handcraftedbits-codequality/issues</url>
     <system>GitHub Issues</system>
   </issueManagement>
+  
+  <properties>
+    <version.java>1.8</version.java>
+    
+    <version.plugin.compiler>3.3</version.plugin.compiler>
+  </properties>
+  
+  
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!-- This is only here to keep Eclipse from complaining about the Java version for this project. -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${version.plugin.compiler}</version>
+          <configuration>
+            <source>${version.java}</source>
+            <target>${version.java}</target>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
