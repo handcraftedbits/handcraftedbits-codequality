@@ -19,19 +19,33 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <groupId>com.handcraftedbits</groupId>
   <artifactId>handcraftedbits-codequality</artifactId>
   <packaging>jar</packaging>
   <name>HandcraftedBits Code Quality Settings</name>
   <description>A collection of code quality settings for HandcraftedBits projects</description>
   <url>https://github.com/handcraftedbits/handcraftedbits-codequality</url>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <inceptionYear>2015</inceptionYear>
 
-  <parent>
-    <groupId>com.handcraftedbits</groupId>
-    <artifactId>handcraftedbits-parent</artifactId>
-    <version>1.2.1</version>
-  </parent>
+  <developers>
+    <developer>
+      <name>Curtiss Howard</name>
+      <email>opensource@handcraftedbits.com</email>
+      <organization>HandcraftedBits</organization>
+      <organizationUrl>https://github.com/handcraftedbits</organizationUrl>
+    </developer>
+  </developers>
+  <organization>
+    <name>HandcraftedBits</name>
+    <url>https://github.com/handcraftedbits</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
 
   <scm>
     <url>https://github.com/handcraftedbits/handcraftedbits-codequality</url>
@@ -46,11 +60,16 @@
   </issueManagement>
   
   <properties>
+    <javadoc.excludedPackages></javadoc.excludedPackages>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.java>1.8</version.java>
     
     <version.plugin.compiler>3.3</version.plugin.compiler>
+    <version.plugin.gpg>1.6</version.plugin.gpg>
+    <version.plugin.javadoc>2.10.3</version.plugin.javadoc>
+    <version.plugin.nexus-staging>1.6.5</version.plugin.nexus-staging>
+    <version.plugin.source>2.4</version.plugin.source>
   </properties>
-  
   
   <build>
     <pluginManagement>
@@ -68,4 +87,87 @@
       </plugins>
     </pluginManagement>
   </build>
+  
+  <profiles>
+    <!-- Release/deploy to Maven Central -->
+    <profile>
+      <id>release</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${version.plugin.gpg}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${version.plugin.javadoc}</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <configuration>
+                  <additionalparam>-Xdoclint:none</additionalparam>
+                  <excludePackageNames>${javadoc.excludedPackages}</excludePackageNames>
+                  <links>
+                    <link>https://docs.oracle.com/javaee/7/api/</link>
+                  </links>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${version.plugin.source}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>${version.plugin.nexus-staging}</version>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+
+      <distributionManagement>
+        <snapshotRepository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+      </distributionManagement>
+    </profile>
+  </profiles>
 </project>
