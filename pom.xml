@@ -64,11 +64,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.java>1.8</version.java>
     
-    <version.plugin.compiler>3.3</version.plugin.compiler>
+    <version.plugin.compiler>3.7.0</version.plugin.compiler>
     <version.plugin.gpg>1.6</version.plugin.gpg>
-    <version.plugin.javadoc>2.10.3</version.plugin.javadoc>
-    <version.plugin.nexus-staging>1.6.5</version.plugin.nexus-staging>
-    <version.plugin.source>2.4</version.plugin.source>
+    <version.plugin.javadoc>3.0.0</version.plugin.javadoc>
+    <version.plugin.nexus-staging>1.6.8</version.plugin.nexus-staging>
+    <version.plugin.source>3.0.1</version.plugin.source>
   </properties>
   
   <build>
