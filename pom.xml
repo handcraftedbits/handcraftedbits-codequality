@@ -25,7 +25,7 @@
   <name>HandcraftedBits Code Quality Settings</name>
   <description>A collection of code quality settings for HandcraftedBits projects</description>
   <url>https://github.com/handcraftedbits/handcraftedbits-codequality</url>
-  <version>1.0.8-SNAPSHOT</version>
+  <version>1.1.1-SNAPSHOT</version>
   <inceptionYear>2015</inceptionYear>
 
   <developers>
@@ -62,13 +62,13 @@
   <properties>
     <javadoc.excludedPackages></javadoc.excludedPackages>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.java>1.8</version.java>
+    <version.java>11</version.java>
     
-    <version.plugin.compiler>3.7.0</version.plugin.compiler>
+    <version.plugin.compiler>3.8.1</version.plugin.compiler>
     <version.plugin.gpg>1.6</version.plugin.gpg>
-    <version.plugin.javadoc>3.0.0</version.plugin.javadoc>
+    <version.plugin.javadoc>3.2.0</version.plugin.javadoc>
     <version.plugin.nexus-staging>1.6.8</version.plugin.nexus-staging>
-    <version.plugin.source>3.0.1</version.plugin.source>
+    <version.plugin.source>3.2.1</version.plugin.source>
   </properties>
   
   <build>
@@ -126,7 +126,7 @@
                   <additionalparam>-Xdoclint:none</additionalparam>
                   <excludePackageNames>${javadoc.excludedPackages}</excludePackageNames>
                   <links>
-                    <link>https://docs.oracle.com/javaee/7/api/</link>
+                    <link>https://javaee.github.io/javaee-spec/javadocs/</link>
                   </links>
                 </configuration>
               </execution>
