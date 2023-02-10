@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright (C) 2015-2020 HandcraftedBits
+  Copyright (C) 2015-2023 HandcraftedBits
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@
   <name>HandcraftedBits Code Quality Settings</name>
   <description>A collection of code quality settings for HandcraftedBits projects</description>
   <url>https://github.com/handcraftedbits/handcraftedbits-codequality</url>
-  <version>1.1.1</version>
+  <version>1.2.0</version>
   <inceptionYear>2015</inceptionYear>
 
   <developers>
@@ -62,12 +62,12 @@
   <properties>
     <javadoc.excludedPackages></javadoc.excludedPackages>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.java>11</version.java>
+    <version.java>17</version.java>
     
-    <version.plugin.compiler>3.8.1</version.plugin.compiler>
-    <version.plugin.gpg>1.6</version.plugin.gpg>
-    <version.plugin.javadoc>3.2.0</version.plugin.javadoc>
-    <version.plugin.nexus-staging>1.6.8</version.plugin.nexus-staging>
+    <version.plugin.compiler>3.10.1</version.plugin.compiler>
+    <version.plugin.gpg>3.0.1</version.plugin.gpg>
+    <version.plugin.javadoc>3.4.1</version.plugin.javadoc>
+    <version.plugin.nexus-staging>1.6.13</version.plugin.nexus-staging>
     <version.plugin.source>3.2.1</version.plugin.source>
   </properties>
   
