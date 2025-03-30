@@ -60,15 +60,16 @@
   </issueManagement>
   
   <properties>
+    <!--suppress CheckTagEmptyBody -->
     <javadoc.excludedPackages></javadoc.excludedPackages>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.java>17</version.java>
+    <version.java>21</version.java>
     
-    <version.plugin.compiler>3.10.1</version.plugin.compiler>
-    <version.plugin.gpg>3.0.1</version.plugin.gpg>
-    <version.plugin.javadoc>3.4.1</version.plugin.javadoc>
+    <version.plugin.compiler>3.11.0</version.plugin.compiler>
+    <version.plugin.gpg>3.1.0</version.plugin.gpg>
+    <version.plugin.javadoc>3.6.3</version.plugin.javadoc>
     <version.plugin.nexus-staging>1.6.13</version.plugin.nexus-staging>
-    <version.plugin.source>3.2.1</version.plugin.source>
+    <version.plugin.source>3.3.0</version.plugin.source>
   </properties>
   
   <build>

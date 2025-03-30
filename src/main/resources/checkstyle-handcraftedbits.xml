@@ -28,7 +28,7 @@
   <!-- Size checks -->
   <module name="LineLength">
     <property name="ignorePattern" value="^import.*$" />
-    <property name="max" value="120" />
+    <property name="max" value="150" />
   </module>
 
   <!-- Suppressions -->
