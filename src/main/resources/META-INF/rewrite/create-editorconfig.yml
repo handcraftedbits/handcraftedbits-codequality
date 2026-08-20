@@ -1,0 +1,21 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.handcraftedbits.codequality.CreateEditorConfig
+displayName: Add .editorconfig
+description: >-
+  Adds a standard .editorconfig file.
+recipeList:
+  - org.openrewrite.text.CreateTextFile:
+      relativeFileName: .editorconfig
+      overwriteExisting: false
+      fileContents: |
+        [*]
+        charset = utf-8
+        end_of_line = lf
+        indent_style = space
+        insert_final_newline = true
+        max_line_length = 150
+        trim_trailing_whitespace = true
+        
+        [*.xml]
+        indent_size = 2
+        tab_width = 2
