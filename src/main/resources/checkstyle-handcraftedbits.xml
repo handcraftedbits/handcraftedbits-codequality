@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (C) 2015-2020 HandcraftedBits
+  Copyright (C) 2015-2026 HandcraftedBits
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -28,12 +28,12 @@
   <!-- Size checks -->
   <module name="LineLength">
     <property name="ignorePattern" value="^import.*$" />
-    <property name="max" value="120" />
+    <property name="max" value="150" />
   </module>
 
   <!-- Suppressions -->
   <module name="SuppressionFilter">
-    <property name="file" value="${checkstyle.suppressions.file}" />
+    <property name="file" value="${checkstyle.suppressions.file}" default="" />
     <property name="optional" value="true" />
   </module>
 

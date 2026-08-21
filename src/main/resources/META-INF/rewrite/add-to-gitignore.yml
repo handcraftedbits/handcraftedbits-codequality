@@ -1,0 +1,20 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.handcraftedbits.codequality.AddToGitIgnore
+displayName: Add standard .gitignore entries
+description: >-
+  Adds a standard .gitignore file.
+recipeList:
+  - org.openrewrite.AddToGitignore:
+      entries: |
+        .idea/
+        .settings/
+        target/
+        .DS_Store
+        .checkstyle
+        .classpath
+        .factorypath
+        .flattened-pom.xml
+        .git-versioned-pom.xml
+        .project
+        *.iml
+        pom.xml.versionsBackup

@@ -1,0 +1,11 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.handcraftedbits.codequality.CreateGitAttributes
+displayName: Add .gitattributes
+description: >-
+  Adds a standard .gitattributes file.
+recipeList:
+  - org.openrewrite.text.CreateTextFile:
+      relativeFileName: .gitattributes
+      overwriteExisting: false
+      fileContents: |
+        * text eol=lf

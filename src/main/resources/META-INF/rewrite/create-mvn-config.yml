@@ -1,0 +1,47 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.handcraftedbits.codequality.CreateMvnConfig
+displayName: Add .mvn configuration
+description: >-
+  Adds the standard .mvn configuration files that enable and configure the Git versioning extension.
+recipeList:
+  - org.openrewrite.text.CreateTextFile:
+      relativeFileName: .mvn/extensions.xml
+      overwriteExisting: false
+      fileContents: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <extensions xmlns="http://maven.apache.org/EXTENSIONS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://maven.apache.org/EXTENSIONS/1.0.0 http://maven.apache.org/xsd/core-extensions-1.0.0.xsd">
+          <extension>
+            <groupId>me.qoomon</groupId>
+            <artifactId>maven-git-versioning-extension</artifactId>
+            <version>9.12.1</version>
+          </extension>
+        </extensions>
+  - org.openrewrite.text.CreateTextFile:
+      relativeFileName: .mvn/maven.config
+      overwriteExisting: false
+      fileContents: |
+        -Dmaven.version.ignore=(?i).*beta.*,(?i).*alpha.*,.*-M\d+,(?i).*[-.]rc\d*.*
+  - org.openrewrite.text.CreateTextFile:
+      relativeFileName: .mvn/maven-git-versioning-extension.xml
+      overwriteExisting: false
+      fileContents: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <configuration xmlns="https://github.com/qoomon/maven-git-versioning-extension"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="https://github.com/qoomon/maven-git-versioning-extension https://qoomon.github.io/maven-git-versioning-extension/configuration-9.4.0.xsd">
+          <refs>
+            <ref type="tag">
+              <pattern><![CDATA[release/(?<version>\d+\.\d+\.\d+.*)]]></pattern>
+              <version>${ref.version}</version>
+              <properties>
+                <revision>${ref.version}</revision>
+                <changelist />
+              </properties>
+            </ref>
+          </refs>
+
+          <rev>
+            <version>${version}</version>
+          </rev>
+        </configuration>

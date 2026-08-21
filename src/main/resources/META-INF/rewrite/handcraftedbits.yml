@@ -1,0 +1,10 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.handcraftedbits.codequality.HandcraftedBits
+displayName: HandcraftedBits project conventions
+description: >-
+  The set of conventions applied to all HandcraftedBits projects.
+recipeList:
+  - com.handcraftedbits.codequality.AddToGitIgnore
+  - com.handcraftedbits.codequality.CreateEditorConfig
+  - com.handcraftedbits.codequality.CreateGitAttributes
+  - com.handcraftedbits.codequality.CreateMvnConfig

@@ -1,10 +1,12 @@
 .idea/
 .settings/
-bin/
 target/
-
 .DS_Store
 .checkstyle
 .classpath
+.factorypath
+.flattened-pom.xml
+.git-versioned-pom.xml
 .project
 *.iml
+pom.xml.versionsBackup

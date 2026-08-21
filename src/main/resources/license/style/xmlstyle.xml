@@ -14,6 +14,16 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE suppressions PUBLIC "-//Checkstyle//DTD SuppressionFilter Configuration 1.0//EN"
-                       "https://checkstyle.org/dtds/suppressions_1_0.dtd">
-<suppressions />
+<additionalHeaders>
+  <xml_style>
+    <allowBlankLines>false</allowBlankLines>
+    <beforeEachLine>  </beforeEachLine>
+    <endLine><![CDATA[-->]]></endLine>
+    <firstLine><![CDATA[<!--]]></firstLine>
+    <firstLineDetectionPattern><![CDATA[(\s|\t)*<!--.*$]]></firstLineDetectionPattern>
+    <isMultiline>true</isMultiline>
+    <lastLineDetectionPattern><![CDATA[.*-->(\s|\t)*$]]></lastLineDetectionPattern>
+    <padLines>false</padLines>
+    <skipLine><![CDATA[^<\?xml.*>$]]></skipLine>
+  </xml_style>
+</additionalHeaders>
