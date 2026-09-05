@@ -102,11 +102,27 @@
     <module name="AvoidStaticImport">
       <property name="excludes" value="org.assertj.core.api.Assertions.*,org.assertj.core.api.AssertionsForClassTypes.*,org.mockito.ArgumentMatchers.*,org.mockito.Mockito.*" />
     </module>
-    <module name="IllegalImport" />
+    <module name="IllegalImport">
+      <property name="id" value="illegalImportSun" />
+    </module>
+    <module name="IllegalImport">
+      <property name="id" value="illegalImportLombok" />
+      <property name="illegalClasses" value="^lombok\.(?!AccessLevel$|AllArgsConstructor$|NoArgsConstructor$|RequiredArgsConstructor$|extern\.slf4j\.Slf4j$).*$" />
+      <!-- Cleared so this module bans only the classes above; the default value of "sun" belongs to the module before it. -->
+      <property name="illegalPkgs" value="" />
+      <property name="regexp" value="true" />
+      <message key="import.illegal" value="Lombok ''{0}'' is not permitted; only @Slf4j and the *ArgsConstructor annotations may be used." />
+    </module>
     <module name="RedundantImport" />
     <module name="UnusedImports" />
 
     <!-- Miscellaneous checks -->
+    <module name="RegexpSinglelineJava">
+      <property name="format" value="@lombok\.(?!(AllArgsConstructor|NoArgsConstructor|RequiredArgsConstructor|extern\.slf4j\.Slf4j)\b)" />
+      <property name="id" value="illegalLombokAnnotation" />
+      <property name="ignoreComments" value="true" />
+      <property name="message" value="Lombok annotation is not permitted; only @Slf4j and the *ArgsConstructor annotations may be used." />
+    </module>
     <module name="ArrayTypeStyle">
       <property name="javaStyle" value="true" />
     </module>

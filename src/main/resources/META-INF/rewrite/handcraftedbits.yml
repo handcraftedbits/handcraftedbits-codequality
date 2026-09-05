@@ -7,4 +7,5 @@ recipeList:
   - com.handcraftedbits.codequality.AddToGitIgnore
   - com.handcraftedbits.codequality.CreateEditorConfig
   - com.handcraftedbits.codequality.CreateGitAttributes
+  - com.handcraftedbits.codequality.CreateLombokConfig
   - com.handcraftedbits.codequality.CreateMvnConfig
