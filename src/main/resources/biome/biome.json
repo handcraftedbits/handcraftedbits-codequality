@@ -33,7 +33,13 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "style": {
+        "useConst": "error"
+      },
+      "suspicious": {
+        "noVar": "error"
+      }
     }
   },
   "vcs": {
