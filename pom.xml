@@ -64,7 +64,7 @@
     updates will be necessary to stay in sync.
   -->
   <properties>
-    <revision>1.3.2</revision>
+    <revision>1.3.3</revision>
     <changelist>-SNAPSHOT</changelist>
 
     <checkstyle.suppressions.location>${basedir}/src/main/resources/checkstyle-handcraftedbits-suppressions.xml</checkstyle.suppressions.location>
@@ -86,7 +86,6 @@
     <version.plugin.checkstyle>3.6.0</version.plugin.checkstyle>
     <version.plugin.enforcer>3.6.3</version.plugin.enforcer>
     <version.plugin.flatten>1.8.0</version.plugin.flatten>
-    <version.plugin.formatter>2.29.0</version.plugin.formatter>
     <version.plugin.gpg>3.2.8</version.plugin.gpg>
     <version.plugin.impsort>1.13.0</version.plugin.impsort>
     <version.plugin.javadoc>3.12.0</version.plugin.javadoc>
@@ -95,6 +94,7 @@
     <version.plugin.rewrite>6.46.1</version.plugin.rewrite>
     <version.plugin.source>3.4.0</version.plugin.source>
     <version.plugin.spotbugs>4.10.3.0</version.plugin.spotbugs>
+    <version.plugin.spotless>3.10.2</version.plugin.spotless>
     <version.plugin.versions>2.21.0</version.plugin.versions>
   </properties>
 
@@ -157,6 +157,51 @@
     </pluginManagement>
 
     <plugins>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${version.plugin.spotless}</version>
+        <!-- Configuration is kept here rather than in the execution so that spotless:apply also works when invoked directly. -->
+        <configuration>
+          <formats>
+            <!-- Java and JavaScript are handled by their own formatters, which already cover both of these rules. -->
+            <format>
+              <includes>
+                <include>.editorconfig</include>
+                <include>.gitattributes</include>
+                <include>.gitignore</include>
+                <include>**/*.config</include>
+                <include>**/*.json</include>
+                <include>**/*.md</include>
+                <include>**/*.properties</include>
+                <include>**/*.sh</include>
+                <include>**/*.xml</include>
+                <include>**/*.yml</include>
+              </includes>
+              <excludes>
+                <!-- Generated during the build; formatting them is churn that the next build undoes. -->
+                <exclude>**/.flattened-pom.xml</exclude>
+                <exclude>**/.git-versioned-pom.xml</exclude>
+                <exclude>**/target/**</exclude>
+                <!-- License headers are inserted verbatim, so a trailing newline here would show up in every header. -->
+                <exclude>**/src/main/resources/license/**</exclude>
+              </excludes>
+              <endWithNewline />
+              <trimTrailingWhitespace />
+            </format>
+          </formats>
+          <lineEndings>UNIX</lineEndings>
+        </configuration>
+        <executions>
+          <execution>
+            <id>format-sources</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>apply</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
@@ -236,6 +281,33 @@
       <build>
         <plugins>
           <plugin>
+            <groupId>com.diffplug.spotless</groupId>
+            <artifactId>spotless-maven-plugin</artifactId>
+            <version>${version.plugin.spotless}</version>
+            <configuration>
+              <java>
+                <includes>
+                  <include>src/it/java/**/*.java</include>
+                  <include>src/main/java/**/*.java</include>
+                  <include>src/test/java/**/*.java</include>
+                </includes>
+                <eclipse>
+                  <file>${basedir}/src/main/resources/formatter-handcraftedbits.xml</file>
+                </eclipse>
+              </java>
+              <lineEndings>UNIX</lineEndings>
+            </configuration>
+            <executions>
+              <execution>
+                <id>format-sources</id>
+                <phase>process-sources</phase>
+                <goals>
+                  <goal>apply</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs-maven-plugin</artifactId>
             <version>${version.plugin.spotbugs}</version>
@@ -273,33 +345,6 @@
                   <removeUnused>true</removeUnused>
                   <staticAfter>false</staticAfter>
                   <staticGroups>*</staticGroups>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>net.revelc.code.formatter</groupId>
-            <artifactId>formatter-maven-plugin</artifactId>
-            <version>${version.plugin.formatter}</version>
-            <executions>
-              <execution>
-                <id>format-java</id>
-                <goals>
-                  <goal>format</goal>
-                </goals>
-                <configuration>
-                  <configFile>${basedir}/src/main/resources/formatter-handcraftedbits.xml</configFile>
-                  <directories>
-                    <directory>${basedir}/src/it/java</directory>
-                    <directory>${basedir}/src/main/java</directory>
-                    <directory>${basedir}/src/test/java</directory>
-                  </directories>
-                  <lineEnding>LF</lineEnding>
-                  <skipCssFormatting>true</skipCssFormatting>
-                  <skipHtmlFormatting>true</skipHtmlFormatting>
-                  <skipJsFormatting>true</skipJsFormatting>
-                  <skipJsonFormatting>true</skipJsonFormatting>
-                  <skipXmlFormatting>true</skipXmlFormatting>
                 </configuration>
               </execution>
             </executions>
@@ -460,7 +505,18 @@
                       </headerDefinitions>
                       <includes combine.children="append">
                         <include>**/pom.xml</include>
+                        <include>**/Dockerfile</include>
+                        <include>**/Makefile</include>
+                        <include>**/*.c</include>
+                        <include>**/*.cjs</include>
+                        <include>**/*.cpp</include>
+                        <include>**/*.h</include>
+                        <include>**/*.hpp</include>
                         <include>**/*.java</include>
+                        <include>**/*.js</include>
+                        <include>**/*.mjs</include>
+                        <include>**/*.sh</include>
+                        <include>**/*.ts</include>
                         <include>**/src/it/**/invoker.properties</include>
                         <include>**/src/it/**/verify.groovy</include>
                         <include>**/src/it/resources/**/*.properties</include>
@@ -473,8 +529,21 @@
                       </includes>
                     </licenseSet>
                   </licenseSets>
+                  <!--
+                    The plugin's defaults would give c, cpp and h JAVADOC_STYLE, and ts TRIPLESLASH_STYLE, which reads as a reference directive;
+                    cjs, hpp, mjs and Makefile have none. Dockerfile and sh keep their default, SCRIPT_STYLE, which leaves a #! line first.
+                  -->
                   <mapping>
+                    <c>SLASHSTAR_STYLE</c>
+                    <cjs>SLASHSTAR_STYLE</cjs>
+                    <cpp>SLASHSTAR_STYLE</cpp>
+                    <h>SLASHSTAR_STYLE</h>
+                    <hpp>SLASHSTAR_STYLE</hpp>
                     <java>SLASHSTAR_STYLE</java>
+                    <js>SLASHSTAR_STYLE</js>
+                    <Makefile>SCRIPT_STYLE</Makefile>
+                    <mjs>SLASHSTAR_STYLE</mjs>
+                    <ts>SLASHSTAR_STYLE</ts>
                   </mapping>
                 </configuration>
               </execution>

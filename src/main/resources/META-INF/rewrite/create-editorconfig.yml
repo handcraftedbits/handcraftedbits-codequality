@@ -20,6 +20,12 @@ recipeList:
         ij_java_class_count_to_use_import_on_demand = 99
         ij_java_names_count_to_use_import_on_demand = 99
         ij_java_imports_layout = $*,|,java.**,|,javax.**,|,*
+        indent_size = 5
+        tab_width = 5
+
+        [*.{cjs,js,mjs}]
+        indent_size = 2
+        tab_width = 2
 
         [*.xml]
         indent_size = 2

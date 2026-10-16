@@ -5,6 +5,7 @@ description: >-
   The set of conventions applied to all HandcraftedBits projects.
 recipeList:
   - com.handcraftedbits.codequality.AddToGitIgnore
+  - com.handcraftedbits.codequality.CreateAgentsMd
   - com.handcraftedbits.codequality.CreateEditorConfig
   - com.handcraftedbits.codequality.CreateGitAttributes
   - com.handcraftedbits.codequality.CreateLombokConfig
