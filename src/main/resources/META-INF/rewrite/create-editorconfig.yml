@@ -23,7 +23,7 @@ recipeList:
         indent_size = 5
         tab_width = 5
 
-        [*.{cjs,js,mjs}]
+        [*.{cjs,js,mjs,ts}]
         indent_size = 2
         tab_width = 2
 

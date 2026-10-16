@@ -161,12 +161,10 @@
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
         <version>${version.plugin.spotless}</version>
-        <!-- Configuration is kept here rather than in the execution so that spotless:apply also works when invoked directly. -->
         <configuration>
           <formats>
-            <!-- Java and JavaScript are handled by their own formatters, which already cover both of these rules. -->
             <format>
-              <includes>
+              <includes combine.children="append">
                 <include>.editorconfig</include>
                 <include>.gitattributes</include>
                 <include>.gitignore</include>
@@ -178,13 +176,13 @@
                 <include>**/*.xml</include>
                 <include>**/*.yml</include>
               </includes>
-              <excludes>
-                <!-- Generated during the build; formatting them is churn that the next build undoes. -->
+              <excludes combine.children="append">
                 <exclude>**/.flattened-pom.xml</exclude>
                 <exclude>**/.git-versioned-pom.xml</exclude>
-                <exclude>**/target/**</exclude>
-                <!-- License headers are inserted verbatim, so a trailing newline here would show up in every header. -->
+                <exclude>**/.idea/**</exclude>
+                <exclude>**/node_modules/**</exclude>
                 <exclude>**/src/main/resources/license/**</exclude>
+                <exclude>**/target/**</exclude>
               </excludes>
               <endWithNewline />
               <trimTrailingWhitespace />
@@ -501,27 +499,28 @@
                     <licenseSet>
                       <header>${basedir}/src/main/resources/license/${license.type}</header>
                       <headerDefinitions>
+                        <headerDefinition>${basedir}/src/main/resources/license/style/slashstarblanklinestyle.xml</headerDefinition>
                         <headerDefinition>${basedir}/src/main/resources/license/style/xmlstyle.xml</headerDefinition>
                       </headerDefinitions>
                       <includes combine.children="append">
                         <include>**/pom.xml</include>
-                        <include>**/Dockerfile</include>
-                        <include>**/Makefile</include>
-                        <include>**/*.c</include>
-                        <include>**/*.cjs</include>
-                        <include>**/*.cpp</include>
-                        <include>**/*.h</include>
-                        <include>**/*.hpp</include>
-                        <include>**/*.java</include>
-                        <include>**/*.js</include>
-                        <include>**/*.mjs</include>
-                        <include>**/*.sh</include>
-                        <include>**/*.ts</include>
+                        <include>**/src/**/*.c</include>
+                        <include>**/src/**/*.cjs</include>
+                        <include>**/src/**/*.cpp</include>
+                        <include>**/src/**/*.h</include>
+                        <include>**/src/**/*.hpp</include>
+                        <include>**/src/**/*.java</include>
+                        <include>**/src/**/*.js</include>
+                        <include>**/src/**/*.mjs</include>
+                        <include>**/src/**/*.sh</include>
+                        <include>**/src/**/*.ts</include>
                         <include>**/src/it/**/invoker.properties</include>
                         <include>**/src/it/**/verify.groovy</include>
                         <include>**/src/it/resources/**/*.properties</include>
                         <include>**/src/it/resources/**/*.xml</include>
                         <include>**/src/main/codequality/**/*.xml</include>
+                        <include>**/src/main/docker/Dockerfile</include>
+                        <include>**/src/main/make/Makefile</include>
                         <include>**/src/main/resources/**/*.properties</include>
                         <include>**/src/main/resources/**/*.xml</include>
                         <include>**/src/test/resources/**/*.properties</include>
@@ -530,20 +529,21 @@
                     </licenseSet>
                   </licenseSets>
                   <!--
-                    The plugin's defaults would give c, cpp and h JAVADOC_STYLE, and ts TRIPLESLASH_STYLE, which reads as a reference directive;
-                    cjs, hpp, mjs and Makefile have none. Dockerfile and sh keep their default, SCRIPT_STYLE, which leaves a #! line first.
+                    Mycila's defaults would give c, cpp and h JAVADOC_STYLE, and ts TRIPLESLASH_STYLE, which reads as a reference directive;
+                    cjs, hpp, mjs and Makefile have none. SLASHSTAR_BLANK_LINE_STYLE (slashstarblanklinestyle.xml) adds a blank line after the
+                    header and leaves a #! line first; Java keeps SLASHSTAR_STYLE. Dockerfile and sh keep their default, SCRIPT_STYLE.
                   -->
                   <mapping>
-                    <c>SLASHSTAR_STYLE</c>
-                    <cjs>SLASHSTAR_STYLE</cjs>
-                    <cpp>SLASHSTAR_STYLE</cpp>
-                    <h>SLASHSTAR_STYLE</h>
-                    <hpp>SLASHSTAR_STYLE</hpp>
+                    <c>SLASHSTAR_BLANK_LINE_STYLE</c>
+                    <cjs>SLASHSTAR_BLANK_LINE_STYLE</cjs>
+                    <cpp>SLASHSTAR_BLANK_LINE_STYLE</cpp>
+                    <h>SLASHSTAR_BLANK_LINE_STYLE</h>
+                    <hpp>SLASHSTAR_BLANK_LINE_STYLE</hpp>
                     <java>SLASHSTAR_STYLE</java>
-                    <js>SLASHSTAR_STYLE</js>
+                    <js>SLASHSTAR_BLANK_LINE_STYLE</js>
                     <Makefile>SCRIPT_STYLE</Makefile>
-                    <mjs>SLASHSTAR_STYLE</mjs>
-                    <ts>SLASHSTAR_STYLE</ts>
+                    <mjs>SLASHSTAR_BLANK_LINE_STYLE</mjs>
+                    <ts>SLASHSTAR_BLANK_LINE_STYLE</ts>
                   </mapping>
                 </configuration>
               </execution>
