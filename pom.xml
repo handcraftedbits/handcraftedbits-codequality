@@ -512,6 +512,7 @@
                         <include>**/src/**/*.java</include>
                         <include>**/src/**/*.js</include>
                         <include>**/src/**/*.mjs</include>
+                        <include>**/src/**/*.py</include>
                         <include>**/src/**/*.sh</include>
                         <include>**/src/**/*.ts</include>
                         <include>**/src/it/**/invoker.properties</include>
