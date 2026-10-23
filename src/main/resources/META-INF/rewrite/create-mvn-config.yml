@@ -14,7 +14,7 @@ recipeList:
           <extension>
             <groupId>me.qoomon</groupId>
             <artifactId>maven-git-versioning-extension</artifactId>
-            <version>9.12.1</version>
+            <version>9.12.3</version>
           </extension>
         </extensions>
   - org.openrewrite.text.CreateTextFile:
